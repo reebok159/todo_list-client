@@ -8,23 +8,8 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('main', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainController',
-        controllerAs: 'main',
-        resolve: {
-          auth: function($auth, $state) {
-            //if user isn't logged in, this catch exception
-            //and we redirect to login
-            $auth.validateUser().catch(function(res){
-              $state.go('auth.login');
-            });
-          }
-        }
-      })
       //group for pages with no auth access
-      /*.state('auth', {
+      .state('auth', {
         url: '/auth',
         abstract: true,
         template: '<ui-view/>',
@@ -38,10 +23,21 @@
 
           }
         }
-      })*/
-      ;
+      })
+      .state('auth.login', {
+        url: '/login',
+        templateUrl: 'app/auth/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login',
 
-    $urlRouterProvider.otherwise('/');
+      })
+      .state('auth.register', {
+        url: '/register',
+        templateUrl: 'app/auth/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login',
+
+      });
   }
 
 })();
