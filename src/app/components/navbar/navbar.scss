@@ -1,17 +1,20 @@
-.acme-navbar-text{
-  color: white;
+.egn-header
+{
+	background-color: #d9e5f7;
+	text-align: center;
+	width: 100%;
+	font-size: 20px;
+	font-family: 'Helvetica', sans-serif;
+	margin-bottom: 15px;
 }
 
-a {
-  color: black;
+.egn-header .row {
+	display: flex;
+	height: 100px;
 }
 
-h1 {
-  font-size: 2em;
-  margin: 0;
-  line-height: 1.25em;
-}
-
-a:hover, a:focus {
-  color: greenyellow;
+.egn-header .row div
+{
+	margin: auto;
+	line-height: 15px;
 }

@@ -6,13 +6,8 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr, $auth, $location, $state) {
+  function MainController($timeout, webDevTec, toastr, $auth, $location, $state, $http) {
     var vm = this;
-
-
-    console.log($auth);
-    console.log('log1:'+$auth.user.signedIn);
-    console.log('log1:'+!Boolean($auth.user.signedIn));
 
     vm.awesomeThings = [];
     vm.classAnimation = '';
@@ -20,6 +15,7 @@
     vm.showToastr = showToastr;
 
     activate();
+
 
     function activate() {
       getWebDevTec();

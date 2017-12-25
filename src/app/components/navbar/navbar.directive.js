@@ -3,16 +3,13 @@
 
   angular
     .module('todoListClient')
-    .directive('acmeNavbar', acmeNavbar);
+    .directive('egnNavbar', egnNavbar);
 
   /** @ngInject */
-  function acmeNavbar() {
+  function egnNavbar() {
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/navbar/navbar.html',
-      scope: {
-          creationDate: '='
-      },
       controller: NavbarController,
       controllerAs: 'vm',
       bindToController: true

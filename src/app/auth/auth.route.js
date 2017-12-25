@@ -33,8 +33,8 @@
       })
       .state('auth.register', {
         url: '/register',
-        templateUrl: 'app/auth/login.html',
-        controller: 'LoginCtrl',
+        templateUrl: 'app/auth/register.html',
+        controller: 'RegisterCtrl',
         controllerAs: 'login',
 
       });
