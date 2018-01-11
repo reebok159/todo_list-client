@@ -1,0 +1,41 @@
+.egn-project {
+	margin: 15px 0 !important;
+}
+.egn-project .egn-icon {
+	font-size: 10px;
+	color: rgb(138, 138, 138);
+	font-weight: normal;
+}
+.egn-project .egn-icon2 {
+	margin-right: 5px;
+	color: rgb(138, 138, 138);
+}
+
+.egn-project .egn-icon2:hover {
+	opacity: 0.6;
+	cursor: pointer;
+}
+
+.egn-project__top-line {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(138, 138, 138);
+}
+
+.egn-project__last-line {
+
+}
+.egn-project .egn-project__last-line input{
+	box-shadow: none;
+	border: 0px;
+}
+.egn-project .egn-project__last-line input:focus{
+	outline: none;
+	border-radius: 0px;
+	border: 0px;
+	transition: none;
+}
+
+.panel-body {
+	padding: 0 15px;
+}

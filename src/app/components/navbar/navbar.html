@@ -1,7 +1,7 @@
-<div class="egn-header">
+<div class="egn-header" ng-controller="LoginCtrl">
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8"><b>Simple ToDo List</b></div>
-    <div class="col-md-2"><a href="#" class="glyphicon glyphicon-log-out" ng-if="user.signedIn"></a></div>
+    <div class="col-md-2"><span class="glyphicon glyphicon-log-out" ng-if="user.signedIn" ng-click='signOut()' title="Sign Out"></span></div>
   </div>
 </div>

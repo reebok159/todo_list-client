@@ -1,0 +1,86 @@
+<div ng-if="user.signedIn">
+<h2>Projects</h2>
+
+<uib-accordion close-others="false">
+<div ng-repeat="project in projects">
+	<div uib-accordion-group class="egn-project panel-default" ng-show="editedProject.id != project.id">
+	 	<uib-accordion-heading>
+	 		<div class="row egn-project__top-line">
+
+		 		<div class="col-md-11">
+		 			<span class="glyphicon egn-icon" ng-class="{'glyphicon-triangle-bottom': status.open, 'glyphicon-triangle-right': !status.open}"></span>
+		 			{{ project.name }}
+		 		</div>
+
+	 			<div class="col-md-1" ng-click="$event.stopPropagation();">
+					<a href="javascript:void(0)" ng-click="startEditingProject(project);">
+						<i class="glyphicon glyphicon-pencil egn-icon2"></i>
+					</a>
+	 				<a href="javascript:void(0)" ng-click="confirmDeleteProject(project);">
+	 					<i class="glyphicon glyphicon-trash egn-icon2"></i>
+	 				</a>
+	 			</div>
+	 		</div>
+	 	</uib-accordion-heading>
+	 	<div ng-controller="TasksController as tasksCtrl">
+	 		<span ng-init="tasks = tasksCtrl.getTasks(project.id)" ng-if="project.id"></span>
+
+			<div class="row" ng-repeat="task in tasksCtrl.tasks">
+		 		<div class="col-md-12 ">
+		 			--- {{ task.name }}
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+		 	<div class="col-md-12 egn-project__last-line">
+		 		<form><input type="text" placeholder="Enter Task Name..." class="form-control"></form>
+			</div>
+		</div>
+
+	</div>
+	<div ng-show="editedProject.id == project.id">
+		<form ng-submit="commitChangesProject(editedProject)">
+		<div class="form-group" >
+			<input type="text" ng-model="editedProject.new_name" class="form-control egn-new-proj-inp" placeholder="Enter project name ...">
+		</div>
+		<button class="btn btn-primary btn-md" type="submit">Save</button>
+				<a class="btn btn-md" ng-click="cancelEditingProject();" href="javascript:void(0)">Cancel</a>
+		</form>
+	</div>
+</div>
+</uib-accordion>
+
+
+<div class="egn-new-bl">
+	<form ng-submit="createProject(project)">
+		<div class="input form-group" >
+			<input type="text" ng-model="project.name" class="form-control egn-new-proj-inp" placeholder="Enter project name ..." ng-focus="show_btns=true">
+
+		</div>
+			<div class="footer form-group" ng-show="show_btns">
+				<button class="btn btn-primary btn-md" type="submit">Create Project</button>
+				<a class="btn btn-md" ng-click="show_btns=false" href="javascript:void(0)">Cancel</a>
+			</div>
+
+	</form>
+</div>
+
+</div>
+
+
+
+
+
+<script type="text/ng-template" id="deleteProjectModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Delete project</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+						Do you want to delete "{{ obj.name}}"?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok();">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel();">Cancel</button>
+        </div>
+    </script>

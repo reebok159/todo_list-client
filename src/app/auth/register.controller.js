@@ -8,17 +8,19 @@
 
 
     function RegisterCtrl($rootScope, $scope, $auth, $state, toastr, RegisterService) {
-      toastr.clear();
-      var opts = { timeOut: 10000 };
+
+      var opts = { timeOut: 0 };
 
       $rootScope.$on('auth:registration-email-error', function(ev, reason) {
         var errors = RegisterService.getStrErrors(reason);
 
         console.log(reason);
+        toastr.clear();
         toastr.error(errors, 'Registration failed', opts);
       });
 
       $rootScope.$on('auth:registration-email-success', function(ev, message) {
+        toastr.clear();
         console.log(message);
 
         toastr.success('Registration success');
