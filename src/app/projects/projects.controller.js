@@ -11,12 +11,14 @@
     function ProjectsCtrl($rootScope, $scope, $auth, $state, toastr, Project, $uibModal) {
 
       var vm = this;
+      vm.cancelForm = cancelForm;
 
       $scope.createProject = createProject;
       $scope.confirmDeleteProject = confirmDeleteProject;
       $scope.startEditingProject = startEditingProject;
       $scope.cancelEditingProject = cancelEditingProject;
       $scope.commitChangesProject = commitChangesProject;
+      $scope.new_project = {};
       //$scope.deleteProject = deleteProject;
 
       //$scope.editProject = editProject;
@@ -33,12 +35,20 @@
         project.create().then(function(res){
           toastr.success('Project was created!');
           $scope.projects.push(project);
+          //reset form
+
         },
         function(err){
           toastr.success("Project can't be created");
           console.log(err);
         });
 
+      }
+
+      function cancelForm(){
+        $scope.new_project = {};
+        $scope.project_form.$setPristine();
+        $scope.project_form.$setUntouched();
       }
 
       function confirmDeleteProject(obj){
@@ -72,7 +82,7 @@
 
       function startEditingProject(obj){
         $scope.editedProject = obj;
-        $scope.editedProject.new_name = obj.name
+        $scope.editedProject.new_name = obj.name;
         //$scope.copy = angular.copy(obj);
 
       }
@@ -90,14 +100,7 @@
         obj.name = obj.new_name;
         delete obj.new_name;
 
-        new Project(obj).update().then(function(res){
-          toastr.success("Success");
-          cancelEditingProject();
-        }, function(err){
-          console.log(err);
-        });
-
-        console.log(obj);
+        editProject(obj);
       }
 
       function cancelEditingProject(){
@@ -105,7 +108,12 @@
       }
 
       function editProject(obj){
-
+        new Project(obj).update().then(function(res){
+          toastr.success("Success");
+          cancelEditingProject();
+        }, function(err){
+          console.log(err);
+        });
       }
 
       function getProjects()

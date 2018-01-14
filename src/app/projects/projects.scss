@@ -14,6 +14,7 @@
 .egn-project .egn-icon2:hover {
 	opacity: 0.6;
 	cursor: pointer;
+	border: 0px;
 }
 
 .egn-project__top-line {
@@ -23,9 +24,14 @@
 }
 
 .egn-project__last-line {
-
+	line-height: 40px;
+}
+.egn-project .egn-project__last-line-buttons {
+	border-top: 1px #dadada solid;
+	padding: 20px;
 }
 .egn-project .egn-project__last-line input{
+
 	box-shadow: none;
 	border: 0px;
 }
