@@ -6,7 +6,7 @@
     .config(ngAuthConfig);
 
 
- function ngAuthConfig($authProvider) {
+ function ngAuthConfig($authProvider, DOMAIN) {
 
     // the following shows the default values. values passed to this method
     // will extend the defaults using angular.extend
@@ -41,7 +41,7 @@
         expires: 9999,
         expirationUnit: 'days',
         secure: false,
-        domain: '127.0.0.1'
+        domain: DOMAIN
       },
       createPopup: function(url) {
         return window.open(url, '_blank', 'closebuttoncaption=Cancel');

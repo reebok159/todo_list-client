@@ -6,8 +6,8 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log) {
-
+  function runBlock($log, $rootScope, API_HOST) {
+  	$rootScope.API_HOST = API_HOST;
     $log.debug('runBlock end');
   }
 
