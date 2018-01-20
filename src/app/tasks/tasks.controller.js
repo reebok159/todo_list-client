@@ -19,22 +19,24 @@
       vm.commitChangeName = commitChangeName;
       vm.complete = complete;
       vm.openEditDeadline = openEditDeadline;
-      vm.mydate = null;
       vm.changePos = changePos;
+      vm.mydate = null;
 
       function createTask(project_id, obj){
+        toastr.clear();
+
         var task = new Task({
           name: obj.name,
           project_id: project_id
         });
 
         task.create().then(function(res){
-          toastr.success('task was created!');
+          toastr.success('Success', 'Task was created!');
           vm.tasks.push(res);
           cancelForm();
         },
         function(err){
-          toastr.success("task can't be created");
+          toastr.error("Task can't be created");
           console.log(err);
         });
 
@@ -62,6 +64,7 @@
       }
 
       function openEditDeadline(obj){
+        toastr.clear();
         vm.obj = obj;
         vm.mydate = new Date();
 
@@ -83,7 +86,7 @@
             return;
           }
           vm.mydate = null;
-          toastr.success("Nothing was changed");
+          toastr.warning("Nothing was changed");
 
         });
       }
@@ -99,7 +102,7 @@
 
       function editTask(obj){
         new Task(obj).update().then(function(res){
-          toastr.success("Success");
+          toastr.success("Task was edited successfully");
           console.log(res);
           cancelEditingTask();
         }, function(err){
@@ -141,13 +144,13 @@
           getTasks(task.projectId);
         }, function(err){
             console.log(err);
-            toastr.success("can't delete task");
+            toastr.warning("Can't delete task");
         });
       }
 
       function getTasks(project_id)
       {
-        Task.get({projectId: parseInt(project_id)}).then(function(tasks){
+        Task.get({projectId: project_id}).then(function(tasks){
           vm.tasks = tasks;
         });
       }

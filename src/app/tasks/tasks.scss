@@ -8,6 +8,15 @@
 
 .egn-task .egn-task__controls {
 	visibility: hidden;
+		a {
+			&:hover{
+				text-decoration: none;
+			}
+		}
+		span.egn-task__controls_comments {
+			color: #8a8a8a;
+			margin-right: 4px;
+		}
 }
 
 .egn-task:hover {
@@ -38,7 +47,7 @@
     	transform: translateY(-50%);
 		}
 
-		a {
+		a:hover {
 			text-decoration: none;
 		}
 	}

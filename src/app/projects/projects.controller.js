@@ -10,6 +10,7 @@
 
     function ProjectsCtrl($rootScope, $scope, $auth, $state, toastr, Project, $uibModal) {
 
+
       var vm = this;
       vm.cancelForm = cancelForm;
 
@@ -19,15 +20,13 @@
       $scope.cancelEditingProject = cancelEditingProject;
       $scope.commitChangesProject = commitChangesProject;
       $scope.new_project = {};
-      //$scope.deleteProject = deleteProject;
-
-      //$scope.editProject = editProject;
 
 
       getProjects();
 
 
       function createProject(obj){
+        toastr.clear();
         var project = new Project({
           name: obj.name
         });
@@ -75,7 +74,7 @@
           },
           function(err){
             console.log(err);
-            toastr.success("Project can't be deleted");
+            toastr.error("Project can't be deleted");
           });
         });
       }
@@ -93,7 +92,7 @@
         if(obj.name == obj.new_name)
         {
           cancelEditingProject();
-          toastr.success("Nothing was changed");
+          toastr.warning("Nothing was changed");
           return;
         }
 
