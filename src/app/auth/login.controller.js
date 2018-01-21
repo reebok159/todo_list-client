@@ -3,10 +3,9 @@
 
   angular
     .module('todoListClient')
-    .controller('LoginCtrl', function($rootScope, $auth, $state, toastr) {
-      var vm = this;
+    .controller('LoginController', function($rootScope, $auth, $state, toastr) {
 
-      $rootScope.$on('auth:login-success', function(ev, user) {
+      $rootScope.$on('auth:login-success', function(/*ev, user*/) {
         toastr.success('Welcome back', 'Hello!');
         $state.go('main');
       });
@@ -18,7 +17,7 @@
         toastr.error(error);
       });
 
-      $rootScope.$on('auth:logout-success', function(ev) {
+      $rootScope.$on('auth:logout-success', function() {
         toastr.success('Goodbye!');
         $state.go('auth.login');
       });

@@ -7,7 +7,7 @@
 
 
 
-    function TasksCtrl($rootScope, $scope, $auth, $state, toastr, Task, $uibModal) {
+    function TasksCtrl($log, $scope, $auth, $state, toastr, Task, $uibModal) {
 
       var vm = this;
       vm.getTasks = getTasks;
@@ -31,13 +31,13 @@
         });
 
         task.create().then(function(res){
-          toastr.success('Success', 'Task was created!');
+          toastr.success('Task was created!', 'Success');
           vm.tasks.push(res);
           cancelForm();
         },
         function(err){
           toastr.error("Task can't be created");
-          console.log(err);
+          $log.log(err);
         });
 
       }
@@ -74,7 +74,7 @@
 
         var modalInstance = $uibModal.open({
           templateUrl: 'deadlineTaskModal.html',
-          controller: 'ModalInstanceCtrl',
+          controller: 'ModalInstanceController',
           size: 'sm',
           scope: $scope
         });
@@ -103,10 +103,10 @@
       function editTask(obj){
         new Task(obj).update().then(function(res){
           toastr.success("Task was edited successfully");
-          console.log(res);
+          $log.log(res);
           cancelEditingTask();
         }, function(err){
-          console.log(err);
+          $log.log(err);
         });
       }
 
@@ -120,7 +120,7 @@
         $scope.obj = task;
         var modalInstance = $uibModal.open({
           templateUrl: 'deleteTaskModal.html',
-          controller: 'ModalInstanceCtrl',
+          controller: 'ModalInstanceController',
           scope: $scope
         });
 
@@ -131,6 +131,7 @@
 
       function changePos(obj, direction){
         Task.change_priority(obj, direction).then(function(res){
+          $log.log(res);
           getTasks(obj.projectId);
         });
       }
@@ -139,11 +140,11 @@
         toastr.clear();
 
         new Task(obj).delete().then(function(task){
-          console.log(task);
+          $log.log(task);
           toastr.success("Task was deleted");
           getTasks(task.projectId);
         }, function(err){
-            console.log(err);
+            $log.log(err);
             toastr.warning("Can't delete task");
         });
       }

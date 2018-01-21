@@ -6,7 +6,7 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider) {
     $stateProvider
       //group for pages with no auth access
       .state('auth', {
@@ -17,7 +17,7 @@
           auth: function($auth, $state){
             //if user logged in, this returns success and do then
             //block login page to logged in users
-            $auth.validateUser().then(function(res){
+            $auth.validateUser().then(function(){
               $state.go('main');
             });
 
@@ -27,16 +27,14 @@
       .state('auth.login', {
         url: '/login',
         templateUrl: 'app/auth/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'login',
-
+        controller: 'LoginController',
+        controllerAs: 'login'
       })
       .state('auth.register', {
         url: '/register',
         templateUrl: 'app/auth/register.html',
-        controller: 'RegisterCtrl',
-        controllerAs: 'login',
-
+        controller: 'RegisterController',
+        controllerAs: 'login'
       });
   }
 

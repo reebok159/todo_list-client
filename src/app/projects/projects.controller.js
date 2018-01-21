@@ -3,23 +3,23 @@
 
   angular
     .module('todoListClient')
-    .controller('ModalInstanceCtrl', ModalInstanceCtrl)
-    .controller('ProjectsCtrl', ProjectsCtrl);
+    .controller('ModalInstanceController', ModalInstanceController)
+    .controller('ProjectsController', ProjectsController);
 
 
 
-    function ProjectsCtrl($rootScope, $scope, $auth, $state, toastr, Project, $uibModal) {
+    function ProjectsController($log, $scope, $auth, $state, toastr, Project, $uibModal) {
 
 
       var vm = this;
       vm.cancelForm = cancelForm;
 
-      $scope.createProject = createProject;
-      $scope.confirmDeleteProject = confirmDeleteProject;
-      $scope.startEditingProject = startEditingProject;
-      $scope.cancelEditingProject = cancelEditingProject;
-      $scope.commitChangesProject = commitChangesProject;
-      $scope.new_project = {};
+      vm.createProject = createProject;
+      vm.confirmDeleteProject = confirmDeleteProject;
+      vm.startEditingProject = startEditingProject;
+      vm.cancelEditingProject = cancelEditingProject;
+      vm.commitChangesProject = commitChangesProject;
+      vm.new_project = {};
 
 
       getProjects();
@@ -31,30 +31,29 @@
           name: obj.name
         });
 
-        project.create().then(function(res){
+        project.create().then(function(proj){
           toastr.success('Project was created!');
-          $scope.projects.push(project);
-          //reset form
-
+          vm.projects.push(proj);
+          cancelForm();
         },
         function(err){
+          $log.log(err);
           toastr.success("Project can't be created");
-          console.log(err);
         });
 
       }
 
       function cancelForm(){
-        $scope.new_project = {};
-        $scope.project_form.$setPristine();
-        $scope.project_form.$setUntouched();
+        vm.new_project = {};
+        vm.project_form.$setPristine();
+        vm.project_form.$setUntouched();
       }
 
       function confirmDeleteProject(obj){
         $scope.obj = obj;
         var modalInstance = $uibModal.open({
           templateUrl: 'deleteProjectModal.html',
-          controller: 'ModalInstanceCtrl',
+          controller: 'ModalInstanceController',
           scope: $scope
         });
 
@@ -71,17 +70,18 @@
           project.delete().then(function(res){
             toastr.success("Project was deleted");
             getProjects();
+            $log.log(res);
           },
           function(err){
-            console.log(err);
+            $log.log(err);
             toastr.error("Project can't be deleted");
           });
         });
       }
 
       function startEditingProject(obj){
-        $scope.editedProject = obj;
-        $scope.editedProject.new_name = obj.name;
+        vm.editedProject = obj;
+        vm.editedProject.new_name = obj.name;
         //$scope.copy = angular.copy(obj);
 
       }
@@ -103,22 +103,24 @@
       }
 
       function cancelEditingProject(){
-        $scope.editedProject = null;
+        vm.editedProject = null;
       }
 
       function editProject(obj){
         new Project(obj).update().then(function(res){
           toastr.success("Success");
+          $log.log(res);
           cancelEditingProject();
         }, function(err){
-          console.log(err);
+          $log.log(err);
+          //show error
         });
       }
 
       function getProjects()
       {
         Project.query().then(function(projects){
-          $scope.projects = projects;
+          vm.projects = projects;
         });
       }
 
@@ -128,7 +130,7 @@
     }
 
 
-    function ModalInstanceCtrl($uibModalInstance, $scope){
+    function ModalInstanceController($uibModalInstance, $scope){
       $scope.ok = function () {
         $uibModalInstance.close();
       };

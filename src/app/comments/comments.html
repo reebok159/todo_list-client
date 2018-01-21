@@ -1,0 +1,48 @@
+<script type="text/ng-template" id="commentsModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Add Comment</h3>
+    </div>
+    <div class="modal-body" id="modal-body" >
+
+  		<form ng-submit="comCtrl.createComment(comCtrl.new_comment)" name="comCtrl.comment_form">
+				<div class="form-group">
+			    <div class="egn-textarea">
+			    	<div class="egn-textarea__body">
+			    		<textarea class="form-control" ng-model="comCtrl.new_comment.text" rows="4" placeholder="Enter Your Comment"></textarea>
+			  		</div>
+			    	<div class="egn-textarea__icons">
+			    		<div class="glyphicon glyphicon-paperclip egn-icon-clinch" ngf-select accept="image/png, image/jpg, image/jpeg" ngf-pattern="'.jpg,.jpeg,.png'" ngf-max-size="10MB" ng-model="comCtrl.new_comment.image" ngf-model-invalid="comCtrl.errorFile"></div>
+						</div>
+					</div>
+			  </div>
+			  <div>
+			  	<div ng-hide="comCtrl.new_comment.image" style="float: left;">
+			  		<i class="egn-error__text" ng-show="comCtrl.errorFile.$error == 'maxSize'">Error: File too large, max 10M</i>
+			  		<i class="egn-error__text" ng-show="comCtrl.errorFile.$error == 'pattern'">Error: Acceptable file formats: *.jpg, *png</i>
+			  	</div>
+			  	<div class="egn-thumb" style="float: left;" ng-show="comCtrl.new_comment.image">
+						<div class="egn-thumb__delete-btn">
+							<a href="javascript:" title="delete attachment" ng-click="comCtrl.deleteAttachment()"><i class="glyphicon glyphicon-remove"></i></a>
+						</div>
+						<a href="javascript:void(0)"  ng-click="comCtrl.openPreview(comCtrl.new_comment.image)" target="_blank">
+							<img ngf-thumbnail="comCtrl.new_comment.image" class="thumb">
+						</a>
+					</div>
+				  <div class="form-group" style="text-align: right;">
+				    <button class="btn btn-primary" type="submit">Save</button>
+	        	<a class="btn" type="button" ng-click="cancel();">Cancel</a>
+				  </div>
+				</div>
+		  </form>
+		  <div class="comments" ng-hide="comCtrl.comments.length == 0">
+		  	<hr/>
+		  	<div class="egn-comment" ng-repeat="comment in comCtrl.comments">
+		  		<div class="egn-comment__head">
+		  			<span>{{ comCtrl.format_date(comment.createdAt) }}</span>
+		  			<a href="javascript:"><i class="glyphicon glyphicon-trash egn-icon" ng-click="comCtrl.deleteComment(comment, obj)"></i></a>
+		  		</div>
+		  		<div class="egn-comment__body">{{ comment.text }}<br ng-show="comment.text"/><a href="{{ comment.image.url }}" target="_blank" ng-if="comment.image.url != null"><img ng-if="comment.image.url != null" src='{{ comment.image.thumb.url }}'></a></div>
+		  	</div>
+		  </div>
+    </div>
+</script>

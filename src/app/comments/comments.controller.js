@@ -7,7 +7,7 @@
 
 
 
-    function CommentsCtrl($rootScope, $scope, $auth, $state, toastr, Comment, $uibModal, Upload, $timeout, $window) {
+    function CommentsCtrl($log, $scope, $auth, $state, toastr, Comment, $uibModal, Upload, $timeout, $window) {
 
       var vm = this;
       vm.openModal = openModal;
@@ -44,7 +44,7 @@
 
         var modalInstance = $uibModal.open({
           templateUrl: 'commentsModal.html',
-          controller: 'ModalInstanceCtrl',
+          controller: 'ModalInstanceController',
           scope: $scope
         });
 
@@ -64,24 +64,23 @@
           projectId: vm.task.projectId,
           image: obj.image
         };
-        //console.log(comment);
+
         //create comment with image
         if(Upload.isFile(data.image)){
-          console.log('with image');
+          $log.log('with image');
           Comment.with_image(data).then(function(res){
             toastr.success("Comment was created successfully!");
             getComments(vm.task);
             cancelForm();
-            console.log(res);
+            $log.log(res);
           }, function(err){
-            console.log(err);
-            toastr.error("Comment can't be created", "Error");
+            showErr(err);
           });
         } else {
-          console.log('without image');
+          $log.log('without image');
 
           var comment = new Comment(data);
-          console.log(comment);
+          $log.log(comment);
 
           comment.create().then(function(res){
             toastr.success("Comment was created successfully!");
@@ -90,9 +89,13 @@
             cancelForm();
           },
           function(err){
-            toastr.error("Comment can't be created", "Error");
-            console.log(err);
+            showErr(err);
           });
+        }
+
+        function showErr(err){
+          toastr.error("Comment can't be created", "Error");
+          $log.log(err);
         }
       }
 
@@ -106,16 +109,15 @@
 
       function deleteComment(comment, obj){
         toastr.clear();
-        console.log(comment);
+        $log.log(comment);
         comment.projectId = obj.projectId;
-        //comment.taskId = obj.taskId;
 
         new Comment(comment).delete().then(function(comment){
-          console.log(comment);
+          $log.log(comment);
           toastr.success("Task was deleted");
           getComments(obj);
         }, function(err){
-            console.log(err);
+            $log.log(err);
             toastr.warning("Can't delete comment", "Error");
         });
       }
@@ -124,7 +126,6 @@
       {
         Comment.get({projectId: task.projectId, taskId: task.id}).then(function(comments){
           vm.comments = comments;
-          console.log(comments);
           vm.commentsCount = comments.length;
         });
       }
@@ -132,7 +133,5 @@
 
 
     }
-
-
 
 })();

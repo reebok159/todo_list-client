@@ -3,25 +3,23 @@
 
   angular
     .module('todoListClient')
-    .controller('RegisterCtrl', RegisterCtrl);
+    .controller('RegisterController', RegisterController);
 
 
 
-    function RegisterCtrl($rootScope, $scope, $auth, $state, toastr, RegisterService) {
+    function RegisterController($rootScope, $scope, $auth, $state, toastr, RegisterService) {
 
       var opts = { timeOut: 0 };
 
       $rootScope.$on('auth:registration-email-error', function(ev, reason) {
         var errors = RegisterService.getStrErrors(reason);
 
-        console.log(reason);
         toastr.clear();
         toastr.error(errors, 'Registration failed', opts);
       });
 
-      $rootScope.$on('auth:registration-email-success', function(ev, message) {
+      $rootScope.$on('auth:registration-email-success', function(/*ev, message*/) {
         toastr.clear();
-        console.log(message);
 
         toastr.success('Registration success');
         //redirect after success logins
