@@ -27,6 +27,9 @@
 
       function createProject(obj){
         toastr.clear();
+        if(obj.name == undefined || obj.name == '')
+          return toastr.warning("Please, enter project name");
+
         var project = new Project({
           name: obj.name
         });
@@ -37,8 +40,10 @@
           cancelForm();
         },
         function(err){
-          $log.log(err);
-          toastr.success("Project can't be created");
+          var error = "";
+          if(err.data.name != undefined)
+            error = 'Name ' + err.data.name[0];
+          toastr.error("Project can't be created. " + error);
         });
 
       }

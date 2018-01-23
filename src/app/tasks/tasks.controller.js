@@ -66,7 +66,7 @@
       function openEditDeadline(obj){
         toastr.clear();
         vm.obj = obj;
-        vm.mydate = new Date();
+        vm.mydate = null;
 
         if(obj.deadline !== null)
           vm.mydate = new Date(obj.deadline);
@@ -82,11 +82,14 @@
         modalInstance.result.then(function (){
           if(typeof vm.mydate != 'undefined' && vm.mydate != null){
             obj.deadline = vm.mydate.toJSON();
-            editTask(obj);
-            return;
+          } else {
+            obj.deadline = null;
           }
+
+          editTask(obj);
+
           vm.mydate = null;
-          toastr.warning("Nothing was changed");
+          //toastr.warning("Nothing was changed");
 
         });
       }
@@ -97,12 +100,24 @@
       }
 
       function complete(obj){
-        editTask(obj);
+        editTask(obj, true);
       }
 
-      function editTask(obj){
+      function checkIsProjectCompleted(){
+        for(var i = 0; i < vm.tasks.length; i++){
+          if(vm.tasks[i].completed == true) continue;
+          return;
+        }
+        toastr.clear();
+        toastr.success("Well Done! You’re successfully completed all the task.");
+
+      }
+
+      function editTask(obj, change_status){
         new Task(obj).update().then(function(res){
-          toastr.success("Task was edited successfully");
+          if(change_status) checkIsProjectCompleted();
+          else toastr.success("Task was edited successfully");
+
           $log.log(res);
           cancelEditingTask();
         }, function(err){

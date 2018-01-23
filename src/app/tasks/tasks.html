@@ -27,7 +27,8 @@
 
 				<ng-include src="'app/comments/comments.html'"></ng-include>
 
- 				<span class="egn-task__controls_comments">{{comCtrl.commentsCount}}</span><i class="glyphicon glyphicon-comment egn-icon2" ng-click="comCtrl.openModal(task)"></i></a>
+ 				<span ng-show="comCtrl.commentsCount > 0" class="egn-task__controls_comments">{{comCtrl.commentsCount}}</span><i class="glyphicon glyphicon-comment egn-icon2" ng-click="comCtrl.openModal(task)"></i>
+ 			</a>
  			<a href="javascript:"><i class="glyphicon glyphicon-time egn-icon2" ng-click="tasksCtrl.openEditDeadline(task)"></i></a>
  			<a href="javascript:"><i class="glyphicon glyphicon-pencil egn-icon2" ng-click="tasksCtrl.startEditingTask(task)"></i></a>
  			<a href="javascript:"><i class="glyphicon glyphicon-trash egn-icon2" ng-click="tasksCtrl.confirmDeleteTask(task)"></i></a>

@@ -21,7 +21,7 @@
       $rootScope.$on('auth:registration-email-success', function(/*ev, message*/) {
         toastr.clear();
 
-        toastr.success('Registration success');
+        toastr.success('You\'re successfully registered!');
         //redirect after success logins
         $state.go('auth.login');
 

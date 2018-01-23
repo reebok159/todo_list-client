@@ -94,7 +94,11 @@
         }
 
         function showErr(err){
-          toastr.error("Comment can't be created", "Error");
+          var error = "";
+          if(err.data.text != undefined)
+            error = 'Comment ' + err.data.text[0];
+
+          toastr.error("Comment can't be created. " + error, "Error");
           $log.log(err);
         }
       }
