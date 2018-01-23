@@ -14,12 +14,10 @@
       $rootScope.$on('auth:registration-email-error', function(ev, reason) {
         var errors = RegisterService.getStrErrors(reason);
 
-        toastr.clear();
         toastr.error(errors, 'Registration failed', opts);
       });
 
       $rootScope.$on('auth:registration-email-success', function(/*ev, message*/) {
-        toastr.clear();
 
         toastr.success('You\'re successfully registered!');
         //redirect after success logins
