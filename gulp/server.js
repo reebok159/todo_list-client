@@ -33,7 +33,8 @@ function browserSyncInit(baseDir, browser) {
    *
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.9.0/README.md
    */
-  server.middleware = proxyMiddleware(process.env.API_URL, {target: 'http://'+process.env.API_HOST, changeOrigin: true});
+
+  server.middleware = proxyMiddleware(process.env.API_URL, {target: process.env.API_HOST, changeOrigin: true});
 
   browserSync.instance = browserSync.init({
     startPath: '/',
@@ -47,7 +48,7 @@ browserSync.use(browserSyncSpa({
   selector: '[ng-app]'// Only needed for angular apps
 }));
 
-gulp.task('serve', ['dotenv-ng', 'watch'], function () {
+gulp.task('serve', ['ng-config', 'watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
 });
 

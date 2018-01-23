@@ -6,4 +6,5 @@ coverage/
 .tmp/
 dist/
 env.json
+config.json
 package-lock.json

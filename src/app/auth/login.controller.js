@@ -11,9 +11,11 @@
       });
 
       $rootScope.$on('auth:login-error', function(ev, reason) {
-        if(!reason)
+        if(reason == undefined)
           return toastr.error("Can't get connection");
-        var error = reason.errors[0];
+        var error = "Error";
+        if(reason.errors != undefined)
+          error = reason.errors[0];
         toastr.error(error);
       });
 

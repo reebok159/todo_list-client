@@ -6,13 +6,12 @@
     .config(ngAuthConfig);
 
 
- function ngAuthConfig($authProvider, DOMAIN) {
-
+ function ngAuthConfig($authProvider, ENV_VARS) {
     // the following shows the default values. values passed to this method
     // will extend the defaults using angular.extend
 
     $authProvider.configure({
-      apiUrl:                  '/api/v1',
+      apiUrl:                  ENV_VARS.API_HOST + '/api/v1',
       tokenValidationPath:     '/auth/validate_token',
       signOutUrl:              '/auth/sign_out',
       emailRegistrationPath:   '/auth',
@@ -41,7 +40,7 @@
         expires: 9999,
         expirationUnit: 'days',
         secure: false,
-        domain: DOMAIN
+        domain: ENV_VARS.DOMAIN
       },
       createPopup: function(url) {
         return window.open(url, '_blank', 'closebuttoncaption=Cancel');
