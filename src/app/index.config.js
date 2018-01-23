@@ -15,8 +15,10 @@
     toastrConfig.allowHtml = true;
     toastrConfig.timeOut = 3000;
     toastrConfig.positionClass = 'toast-top-right';
-    toastrConfig.preventOpenDuplicates = true;
-    //toastrConfig.progressBar = true;
+    toastrConfig.preventOpenDuplicates = false;
+    toastrConfig.autoDismiss = false;
+    toastrConfig.maxOpened = 1;
+
   }
 
 
