@@ -46,13 +46,13 @@
 <form ng-submit="tasksCtrl.createTask(project.id, tasksCtrl.new_task)" name="tasksCtrl.tasks_form">
 	<div class="row">
 	 	<div class="col-md-12 egn-project__last-line">
-	 			<input type="text" ng-model="tasksCtrl.new_task.name" placeholder="Enter Task Name..." class="form-control" ng-focus="show_btns[project.id] = true">
+	 			<input type="text" ng-model="tasksCtrl.new_task.name" placeholder="Enter Task Name..." class="form-control" ng-focus="tasksCtrl.show_btns[project.id] = true">
 		</div>
 	</div>
-	<div class="row" ng-show="show_btns[project.id]">
+	<div class="row" ng-show="tasksCtrl.show_btns[project.id]">
 		<div class="col-md-12 egn-project__last-line-buttons">
 			<button class="btn btn-success btn-md" type="submit">Add task</button>
-			<a class="btn btn-md" ng-click="tasksCtrl.cancelForm(); show_btns[project.id] = false" href="javascript:void(0)">Cancel</a>
+			<a class="btn btn-md" ng-click="tasksCtrl.cancelForm(); tasksCtrl.show_btns[project.id] = false" href="javascript:void(0)">Cancel</a>
 		</div>
 	</div>
 </form>
