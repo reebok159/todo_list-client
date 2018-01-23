@@ -43,6 +43,10 @@ gulp.task('dotenv-ng', function () {
   console.log('dotenv-ng completed');
 });
 
+gulp.task('heroku:production', ['dotenv-ng', 'build'], function(){
+  console.log('herokuduction');
+});
+
 /**
  *  Default task clean temporaries directories and launch the
  *  main optimization build task
