@@ -11,7 +11,7 @@
     // will extend the defaults using angular.extend
 
     $authProvider.configure({
-      apiUrl:                  ENV_VARS.API_HOST + '/api/v1',
+      apiUrl:                  '/api/v1',
       tokenValidationPath:     '/auth/validate_token',
       signOutUrl:              '/auth/sign_out',
       emailRegistrationPath:   '/auth',
