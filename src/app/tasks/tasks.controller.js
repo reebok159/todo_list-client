@@ -145,9 +145,11 @@
       }
 
       function changePos(obj, direction){
-        Task.change_priority(obj, direction).then(function(res){
-          $log.log(res);
-          getTasks(obj.projectId);
+        obj.priority = direction;
+        new Task(obj).update().then(function(res){
+           getTasks(obj.projectId);
+        }, function(err){
+          $log.log(err);
         });
       }
 
