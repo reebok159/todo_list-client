@@ -1,0 +1,23 @@
+<div class="container">
+<div class="small-box" ng-if="!user.signedIn">
+ <div class="small-box__title"><span class="glyphicon glyphicon-th-large"></span> Sign In</div>
+ <form ng-submit="submitLogin(loginForm)" role="form" ng-init="loginForm = {}">
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" name="email" ng-model="loginForm.email" required="required" autofocus class="form-control" placeholder="enter email" />
+  </div>
+  <div class="form-group">
+    <label>Password:</label>
+    <input type="password" name="password" ng-model="loginForm.password" required="required" class="form-control" placeholder="enter password"/>
+  </div>
+
+  <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+
+  <div class="small-box__bottom">Don't have an account? <a ui-sref="auth.register">Sign Up</a></div>
+</form>
+</div>
+
+
+<div ng-if="user.signedIn">Hello {{ user.signedIn }} user</div>
+
+</div>

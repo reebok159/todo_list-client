@@ -1,0 +1,58 @@
+<span ng-init="tasks = tasksCtrl.getTasks(project.id)" ng-if="project.id"></span>
+
+<div ng-repeat="task in tasksCtrl.tasks | orderBy:'position'">
+	<form ng-submit="tasksCtrl.commitChangeName(editedTask)">
+	<div class="row egn-task">
+		<div class="col-md-1 centered">
+			<div class="egn-task__status-cell">
+			<div class="egn-task__status left">
+				<div class="inner">
+				<a href="javascript:"><i class="glyphicon glyphicon-arrow-up egn-icon-prior" ng-click="tasksCtrl.changePos(task, 'up');"></i></a>
+				<a href="javascript:"><i class="glyphicon glyphicon-arrow-down egn-icon-prior" ng-click="tasksCtrl.changePos(task, 'down');"></i></a>
+				</div>
+			</div>
+			<div class="egn-task__status right">
+				<input type="checkbox" ng-model="task.completed" ng-change="tasksCtrl.complete(task);">
+			</div>
+			</div>
+		</div>
+ 		<div class="col-md-9">
+ 			<div ng-hide="editedTask.id != task.id">
+ 				<input type="text" ng-model="editedTask.new_name" class="form-control egn-new-proj-inp" placeholder="Enter task name ...">
+ 			</div>
+ 			<div ng-show="editedTask.id != task.id" ng-attr-style="{{task.completed && 'text-decoration: line-through;' || ''}}">{{ task.name }}</div>
+ 		</div>
+ 		<div class="col-md-2 centered egn-task__controls">
+ 			<a href="javascript:" ng-controller="CommentsController as comCtrl" ng-init="comCtrl.init(task)">
+
+				<ng-include src="'app/comments/comments.html'"></ng-include>
+
+ 				<span ng-show="comCtrl.commentsCount > 0" class="egn-task__controls_comments">{{comCtrl.commentsCount}}</span><i class="glyphicon glyphicon-comment egn-icon2" ng-click="comCtrl.openModal(task)"></i>
+ 			</a>
+ 			<a href="javascript:"><i class="glyphicon glyphicon-time egn-icon2" ng-click="tasksCtrl.openEditDeadline(task)"></i></a>
+ 			<a href="javascript:"><i class="glyphicon glyphicon-pencil egn-icon2" ng-click="tasksCtrl.startEditingTask(task)"></i></a>
+ 			<a href="javascript:"><i class="glyphicon glyphicon-trash egn-icon2" ng-click="tasksCtrl.confirmDeleteTask(task)"></i></a>
+ 		</div>
+	</div>
+	<div class="row" ng-hide="editedTask.id != task.id">
+		<div class="col-md-12 egn-task__edit-row">
+			<button class="btn btn-success btn-md" type="submit">Save</button>
+			<a class="btn btn-md" ng-click="tasksCtrl.cancelEditingTask(); show_btns[project.id] = false" href="javascript:void(0);">Cancel</a>
+		</div>
+	</div>
+	</form>
+</div>
+
+<form ng-submit="tasksCtrl.createTask(project.id, tasksCtrl.new_task)" name="tasksCtrl.tasks_form">
+	<div class="row">
+	 	<div class="col-md-12 egn-project__last-line">
+	 			<input type="text" ng-model="tasksCtrl.new_task.name" placeholder="Enter Task Name..." class="form-control" ng-focus="tasksCtrl.show_btns[project.id] = true">
+		</div>
+	</div>
+	<div class="row" ng-show="tasksCtrl.show_btns[project.id]">
+		<div class="col-md-12 egn-project__last-line-buttons">
+			<button class="btn btn-success btn-md" type="submit">Add task</button>
+			<a class="btn btn-md" ng-click="tasksCtrl.cancelForm(); tasksCtrl.show_btns[project.id] = false" href="javascript:void(0)">Cancel</a>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,78 @@
+.egn-task
+{
+	color: #6d6d6d;
+	line-height: 40px;
+	//background: red;
+	border-bottom: 1px #dadada solid;
+}
+
+.egn-task .egn-task__controls {
+	visibility: hidden;
+		a {
+			&:hover{
+				text-decoration: none;
+			}
+		}
+		span.egn-task__controls_comments {
+			color: #8a8a8a;
+			margin-right: 4px;
+		}
+}
+
+.egn-task:hover {
+	background-color: #f9f9f9;
+	cursor: pointer;
+}
+
+.egn-task:hover .egn-task__controls {
+	visibility: visible;
+}
+
+.egn-task__edit-row {
+	border-bottom: 1px #dadada solid;
+	padding: 10px 10px 10px 30px;
+}
+
+
+.egn-task__status {
+	&.right {
+		margin-left: 10px;
+	}
+
+	&.left {
+		.inner {
+			margin-left: -10px;
+			position: absolute;
+    	top: 50%;
+    	transform: translateY(-50%);
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.egn-task__status-cell {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.egn-task .egn-icon-prior {
+	visibility: hidden;
+	display: block;
+	font-size: 11px;
+	margin:2px;
+	color: rgb(138, 138, 138);
+}
+
+.egn-task:hover .egn-icon-prior {
+	visibility: visible;
+}
+
+.egn-task:hover .egn-icon-prior:hover {
+	opacity: 0.6;
+	cursor: pointer;
+	border: 0px;
+}
